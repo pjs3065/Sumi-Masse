@@ -9,12 +9,13 @@ public static class Main {
     public const int WHITEBALL = 2;
     public const int YELLOWBALL = 3;
 
-    private static HashSet<double> mWhiteColSet = new HashSet<double>();    // white ball collision set.
-    private static HashSet<double> mYellowColSet = new HashSet<double>();   // yellow ball collision set.
+    private static HashSet<int> mWhiteColSet = new HashSet<int>();    // white ball collision set.
+    private static HashSet<int> mYellowColSet = new HashSet<int>();   // yellow ball collision set.
 
     private static int mNumPlayer = 0; // number of player.
-    private static int mTurn = 1;  // indicates whose turn, starts from 1.
+    private static int mTurn = 0;  // indicates whose turn, starts from 1.
     private static bool mBall = false; // true: yellow ball, false: white ball;
+    private static int[] mScore = new int[4] { 0, 0, 0, 0}; // score
 
     private static Direction cDirection = GameObject.Find("Direction").GetComponent<Direction>(); // 'Direction.cs' script reference.
     private static WhiteBallController cWhiteBallController = GameObject.Find("WhiteBall").GetComponent<WhiteBallController>();   // 'WhiteBallController.cs' script reference.
@@ -50,14 +51,57 @@ public static class Main {
             direction.Normalize();
             cYellowBallController.AddForce(direction, power);
         }
-
-        setScore();
-        mBall = !mBall;
-        mTurn = (mTurn + 1) % mNumPlayer;
+        
+        if (!CountScore())
+        {
+            mBall = !mBall;
+            mTurn = (mTurn + 1) % mNumPlayer;
+        }
     }
 
-    private static void setScore()
+    private static bool CountScore()
     {
+        if (mBall)
+        {
+            if (mWhiteColSet.Contains(YELLOWBALL))
+            {
+                if (mScore[mTurn] != 0)
+                {
+                    mScore[mTurn] = mScore[mTurn] - 10;
+                }
+                return false;
+            }
+            else if (mWhiteColSet.Contains(REDBALL) && mWhiteColSet.Contains(REDBALL2))
+            {
+                mScore[mTurn] = mScore[mTurn] + 10;
+                return true;
+            }
+        }
 
+        else
+        {
+            if (mYellowColSet.Contains(WHITEBALL))
+            {
+                if (mScore[mTurn] != 0)
+                {
+                    mScore[mTurn] = mScore[mTurn] - 10;
+                }
+                return false;
+            }
+            else if (mYellowColSet.Contains(REDBALL) && mWhiteColSet.Contains(REDBALL2))
+            {
+                mScore[mTurn] = mScore[mTurn] + 10;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static void RefreshScoreBoard()
+    {
+        string txt = "Score\n";
+
+        for (int i=0; i<mNumPlayer; i++)
+            txt += "Player " + i + ": " + mScore[i] + "\n";
     }
 }
