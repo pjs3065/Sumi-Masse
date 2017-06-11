@@ -46,7 +46,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\Direction.cs" />
+     <Compile Include="Assets\Scripts\Main.cs" />
+     <Compile Include="Assets\Scripts\Plane.cs" />
      <Compile Include="Assets\Scripts\WhiteBallController.cs" />
+     <Compile Include="Assets\Scripts\YellowBallController.cs" />
      <Compile Include="Assets\Scripts\btLauncherController.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>

@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WhiteBallController : MonoBehaviour
-{
+public class YellowBallController : MonoBehaviour {
+
     public float speed;
 
     private Rigidbody rigidbody;
@@ -16,7 +16,6 @@ public class WhiteBallController : MonoBehaviour
 
     void FixedUpdate()
     {
-        
     }
 
     // Update is called once per frame

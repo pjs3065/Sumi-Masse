@@ -1,14 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class btLauncherController : MonoBehaviour {
     
-    WhiteBallController whiteBall;
+    Slider cPowerSlider;    // 'sldPower' component reference.
 
 	// Use this for initialization
 	void Start () {
-        this.whiteBall = GameObject.Find("WhiteBall").GetComponent<WhiteBallController>();
+        this.cPowerSlider = GameObject.Find("sldPower").GetComponent<Slider>();
     }
 	
 	// Update is called once per frame
@@ -18,7 +19,6 @@ public class btLauncherController : MonoBehaviour {
 
     public void Launch()
     {
-        Vector3 movement = new Vector3(0.5f, 0.0f, 0.5f);
-        whiteBall.AddForce(movement, 500);
+        Main.Launch(cPowerSlider.value);
     }
 }
