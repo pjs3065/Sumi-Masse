@@ -27,4 +27,14 @@ public class YellowBallController : MonoBehaviour {
     {
         rigidbody.AddForce(movement * speed);
     }
+
+    public void OnCollisionEnter(Collision col)
+    {
+        if (col.transform.tag == "RedBall")
+            Main.AddYellowColSet(Main.REDBALL);
+        else if (col.transform.tag == "RedBall2")
+            Main.AddYellowColSet(Main.REDBALL2);
+        else if (col.transform.tag == "WhiteBall")
+            Main.AddYellowColSet(Main.WHITEBALL);
+    }
 }
