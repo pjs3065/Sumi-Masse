@@ -10,7 +10,7 @@ public static class Main {
     public const int WHITEBALL = 2;
     public const int YELLOWBALL = 3;
 
-    private static HashSet<int> mWhiteColSet = new HashSet<int>();    //  white ball collision set.
+    private static HashSet<int> mWhiteColSet = new HashSet<int>();    // white ball collision set.
     private static HashSet<int> mYellowColSet = new HashSet<int>();   // yellow ball collision set.
 
     private static int mNumPlayer = 0; // number of player.
