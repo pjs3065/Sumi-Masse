@@ -45,9 +45,15 @@ public class WhiteBallController : MonoBehaviour
             yield return new WaitForSeconds(checkRate);
             actualPos = rigidbody.transform.position;
             if (prevPos == actualPos)
+            {
+                Debug.Log("whiteball is stopped");
                 isMoving = false;
+            }
             else
+            {
+                Debug.Log("whiteball is moving");
                 isMoving = true;
+            }
         }
     }
 

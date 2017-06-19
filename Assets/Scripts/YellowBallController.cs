@@ -46,9 +46,15 @@ public class YellowBallController : MonoBehaviour {
             yield return new WaitForSeconds(checkRate);
             actualPos = rigidbody.transform.position;
             if (prevPos == actualPos)
+            {
+                Debug.Log("yellowball is stopped");
                 isMoving = false;
+            }
             else
+            {
+                Debug.Log("yellowball is moving");
                 isMoving = true;
+            }
         }
     }
 

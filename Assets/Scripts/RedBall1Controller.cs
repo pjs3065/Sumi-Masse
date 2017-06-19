@@ -30,9 +30,15 @@ public class RedBall1Controller : MonoBehaviour {
             yield return new WaitForSeconds(checkRate);
             actualPos = rigidbody.transform.position;
             if (prevPos == actualPos)
+            {
+                Debug.Log("redball1 is stopped");
                 isMoving = false;
+            }
             else
+            {
+                Debug.Log("redball1 is moving");
                 isMoving = true;
+            }
         }
     }
 

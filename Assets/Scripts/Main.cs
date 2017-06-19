@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Threading;
 
 public static class Main {
 
@@ -23,7 +24,7 @@ public static class Main {
     private static RedBall1Controller cRedBall1Controller = GameObject.Find("RedBall").GetComponent<RedBall1Controller>(); // 'RedBall1Controller.cs' script reference.
     private static RedBall2Controller cRedBall2Controller = GameObject.Find("RedBall2").GetComponent<RedBall2Controller>(); // 'RedBall2Controller.cs' script reference.
     private static btLauncherController cLauncherController = GameObject.Find("btLauncher").GetComponent<btLauncherController>();
-
+    
     public static void AddYellowColSet(int n)
     {
         mYellowColSet.Add(n);
@@ -56,16 +57,27 @@ public static class Main {
         }
 
         cLauncherController.setActive(false);
-        
-        
+        Thread th = new Thread(new ThreadStart(WaitingBall));
+        th.Start();
+        th.Join();
+
         if (!GetScore())  // if player get score, play once more
         {
             mBall = !mBall;
             mTurn = (mTurn + 1) % mNumPlayer;
         }
-
         SetScoreBoard();
         cLauncherController.setActive(true);
+    }
+
+    private static void WaitingBall()
+    {
+        //while (!cWhiteBallController.IsMoving() && !cYellowBallController.IsMoving())
+           // ;
+        Debug.Log("waiting balls..");
+        while (cWhiteBallController.IsMoving() || cYellowBallController.IsMoving())
+            Debug.Log("while loop");
+        Debug.Log("balls are stopped.");
     }
 
     private static bool GetScore()
