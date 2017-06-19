@@ -5,18 +5,14 @@ using UnityEngine;
 public class WhiteBallController : MonoBehaviour
 {
     public float speed;
-
     private Rigidbody rigidbody;
+    private bool isMoving;
 
     // Use this for initialization
     void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
-    }
-
-    void FixedUpdate()
-    {
-        
+        StartCoroutine(CheckMoving(0.05f));
     }
 
     // Update is called once per frame
@@ -37,5 +33,26 @@ public class WhiteBallController : MonoBehaviour
             Main.AddWhiteColSet(Main.REDBALL2);
         else if (col.transform.tag == "YellowBall")
             Main.AddWhiteColSet(Main.YELLOWBALL);
+    }
+
+    IEnumerator CheckMoving(float checkRate)
+    {
+        Vector3 prevPos, actualPos;
+
+        while (true)
+        {
+            prevPos = rigidbody.transform.position;
+            yield return new WaitForSeconds(checkRate);
+            actualPos = rigidbody.transform.position;
+            if (prevPos == actualPos)
+                isMoving = false;
+            else
+                isMoving = true;
+        }
+    }
+
+    public bool IsMoving()
+    {
+        return isMoving;
     }
 }

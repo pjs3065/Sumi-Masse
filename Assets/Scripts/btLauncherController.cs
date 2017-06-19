@@ -4,12 +4,14 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class btLauncherController : MonoBehaviour {
-    
-    Slider cPowerSlider;    // 'sldPower' component reference.
+
+    GameObject mPowerSlider;// 'sldPower' component reference.
+    GameObject mLaunchButton;
 
 	// Use this for initialization
 	void Start () {
-        this.cPowerSlider = GameObject.Find("sldPower").GetComponent<Slider>();
+        this.mPowerSlider = GameObject.Find("sldPower");
+        this.mLaunchButton = GameObject.Find("btLauncher");
     }
 	
 	// Update is called once per frame
@@ -17,8 +19,14 @@ public class btLauncherController : MonoBehaviour {
 		
 	}
 
+    public void setActive(bool active)
+    {
+        mPowerSlider.SetActive(active);
+        mLaunchButton.SetActive(active);
+    }
+
     public void Launch()
     {
-        Main.Launch(cPowerSlider.value);
+        Main.Launch(mPowerSlider.GetComponent<Slider>().value);
     }
 }
