@@ -28,11 +28,11 @@ public class WhiteBallController : MonoBehaviour
     public void OnCollisionEnter(Collision col)
     {
         if (col.transform.tag == "RedBall")
-            Main.AddWhiteColSet(Main.REDBALL);
+            Main.instance.AddWhiteColSet(Main.REDBALL);
         else if (col.transform.tag == "RedBall2")
-            Main.AddWhiteColSet(Main.REDBALL2);
+            Main.instance.AddWhiteColSet(Main.REDBALL2);
         else if (col.transform.tag == "YellowBall")
-            Main.AddWhiteColSet(Main.YELLOWBALL);
+            Main.instance.AddWhiteColSet(Main.YELLOWBALL);
     }
 
     IEnumerator CheckMoving(float checkRate)

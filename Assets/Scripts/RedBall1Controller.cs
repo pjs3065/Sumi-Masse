@@ -11,6 +11,7 @@ public class RedBall1Controller : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
+        Debug.Log(Main.instance.getBtLauncherController().ToString());
         rigidbody = GetComponent<Rigidbody>();
         StartCoroutine(CheckMoving(0.05f));
     }

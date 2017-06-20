@@ -28,11 +28,11 @@ public class YellowBallController : MonoBehaviour {
     public void OnCollisionEnter(Collision col)
     {
         if (col.transform.tag == "RedBall")
-            Main.AddYellowColSet(Main.REDBALL);
+            Main.instance.AddYellowColSet(Main.REDBALL);
         else if (col.transform.tag == "RedBall2")
-            Main.AddYellowColSet(Main.REDBALL2);
+            Main.instance.AddYellowColSet(Main.REDBALL2);
         else if (col.transform.tag == "WhiteBall")
-            Main.AddYellowColSet(Main.WHITEBALL);
+            Main.instance.AddYellowColSet(Main.WHITEBALL);
     }
 
 

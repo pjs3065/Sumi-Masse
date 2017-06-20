@@ -25,8 +25,8 @@ public class btLauncherController : MonoBehaviour {
         mLaunchButton.SetActive(active);
     }
 
-    public void Launch()
+    public void Strike()
     {
-        Main.Launch(mPowerSlider.GetComponent<Slider>().value);
+        Main.instance.Strike(mPowerSlider.GetComponent<Slider>().value);
     }
 }
