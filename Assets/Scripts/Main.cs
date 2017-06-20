@@ -29,6 +29,7 @@ public class Main {
     private btLauncherController cLauncherController = GameObject.Find("btLauncher").GetComponent<btLauncherController>();
     private txtScoreBoard cTxtScoreBoard = GameObject.Find("txtScoreBoard").GetComponent<txtScoreBoard>();
     private Force cForce = GameObject.Find("Force").GetComponent<Force>();
+    private CueCamera cCueCamera = GameObject.Find("CueCamera").GetComponent<CueCamera>();
 
     public btLauncherController getBtLauncherController()
     {
@@ -63,8 +64,9 @@ public class Main {
         forceDir.y = 0.0f;
         forceDir.Normalize();
         forcePos = ballPos - forceDir;
+        cCueCamera.SetPosition(forcePos);    // cue camera position setting
+        cCueCamera.SetDirection(ballPos);
         cForce.Strike(forcePos, forceDir, power);
-
         cDirection.StartCoroutine(AfterStrike());
     }
 
