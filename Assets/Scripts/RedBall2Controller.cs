@@ -29,7 +29,7 @@ public class RedBall2Controller : MonoBehaviour {
             prevPos = rigidbody.transform.position;
             yield return new WaitForSeconds(checkRate);
             actualPos = rigidbody.transform.position;
-            if (prevPos == actualPos)
+            if (Vector3.Distance(prevPos, actualPos) < 0.03f)
             {
                 Debug.Log("redball2 is stopped");
                 isMoving = false;

@@ -19,12 +19,7 @@ public class YellowBallController : MonoBehaviour {
     void Update()
     {
     }
-
-    public void AddForce(Vector3 movement, float speed)
-    {
-        rigidbody.AddForce(movement * speed);
-    }
-
+    
     public void OnCollisionEnter(Collision col)
     {
         if (col.transform.tag == "RedBall")
@@ -45,7 +40,7 @@ public class YellowBallController : MonoBehaviour {
             prevPos = rigidbody.transform.position;
             yield return new WaitForSeconds(checkRate);
             actualPos = rigidbody.transform.position;
-            if (prevPos == actualPos)
+            if (Vector3.Distance(prevPos, actualPos) < 0.03f)
             {
                 Debug.Log("yellowball is stopped");
                 isMoving = false;

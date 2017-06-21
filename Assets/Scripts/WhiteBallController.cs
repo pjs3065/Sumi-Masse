@@ -20,11 +20,6 @@ public class WhiteBallController : MonoBehaviour
     {
     }
 
-    public void AddForce(Vector3 movement, float speed)
-    {
-        rigidbody.AddForce(movement * speed);
-    }
-
     public void OnCollisionEnter(Collision col)
     {
         if (col.transform.tag == "RedBall")
@@ -44,7 +39,7 @@ public class WhiteBallController : MonoBehaviour
             prevPos = rigidbody.transform.position;
             yield return new WaitForSeconds(checkRate);
             actualPos = rigidbody.transform.position;
-            if (prevPos == actualPos)
+            if (Vector3.Distance(prevPos, actualPos) < 0.01f)
             {
                 Debug.Log("whiteball is stopped");
                 isMoving = false;

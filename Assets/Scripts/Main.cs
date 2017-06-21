@@ -20,8 +20,10 @@ public class Main {
     private int mTurn = 0;  // indicates whose turn, starts from 1.
     private bool mBall = false; // true: yellow ball, false: white ball;
     private int[] mScore = new int[4] { 0, 0, 0, 0}; // score
+    private bool mSpinReady = false;
 
     private Direction cDirection = GameObject.Find("Direction").GetComponent<Direction>(); // 'Direction.cs' script reference.
+    private Pointer cPointer = GameObject.Find("Pointer").GetComponent<Pointer>();
     private WhiteBallController cWhiteBallController = GameObject.Find("WhiteBall").GetComponent<WhiteBallController>();   // 'WhiteBallController.cs' script reference.
     private YellowBallController cYellowBallController = GameObject.Find("YellowBall").GetComponent<YellowBallController>(); // 'YellowBallController.cs' script reference.
     private RedBall1Controller cRedBall1Controller = GameObject.Find("RedBall").GetComponent<RedBall1Controller>(); // 'RedBall1Controller.cs' script reference.
@@ -51,23 +53,48 @@ public class Main {
     {
         mNumPlayer = 2; // for debugging
 
+        /* setting force vector */
         Vector3 ballPos;    // ball position
-        Vector3 forceDir; // que direction
-        Vector3 forcePos; // que position
-
         if (mBall)  // white ball turn
+        {
+            Debug.Log("white ball turn.");
             ballPos = cWhiteBallController.transform.position;
+        }
         else    // yellow ball turn
+        {
+            Debug.Log("yellow ball turn.");
             ballPos = cYellowBallController.transform.position;
-
-        forceDir = cDirection.transform.position - ballPos;
+        }
+        Vector3 forceDir = cDirection.transform.position - ballPos;
         forceDir.y = 0.0f;
         forceDir.Normalize();
-        forcePos = ballPos - forceDir;
-        cCueCamera.SetPosition(forcePos);    // cue camera position setting
-        cCueCamera.SetDirection(ballPos);
-        cForce.Strike(forcePos, forceDir, power);
-        cDirection.StartCoroutine(AfterStrike());
+        Vector3 forcePos = ballPos - forceDir;
+        Vector3 camPos = ballPos - forceDir * 2;
+
+        if (!mSpinReady)    // before setting spin
+        {
+            cPointer.SetPosition(forcePos);
+            cDirection.SetMovable(false);
+            cPointer.SetMovable(true);
+            mSpinReady = true;
+
+            /* setting sub camera */
+            cCueCamera.SetPosition(camPos);    // cue camera position setting
+            cCueCamera.SetDirection(ballPos);   // cue camera position setting
+
+        }
+        else
+        {
+            cDirection.SetMovable(true);
+            cPointer.SetMovable(false);
+            mSpinReady = false;
+
+            //forceDir = cPointer.GetPosition();
+
+            /* setting pointer vector */
+            cForce.Strike(forcePos, forceDir, power);
+            cDirection.StartCoroutine(AfterStrike());
+        }
     }
 
     private  IEnumerator AfterStrike()
@@ -82,6 +109,7 @@ public class Main {
             mBall = !mBall;
             mTurn = (mTurn + 1) % mNumPlayer;
         }
+        
         SetScoreBoard();
         cLauncherController.setActive(true);
     }
